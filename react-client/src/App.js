@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import FibonacciCalculator from './containers/fibonacciCalculator';
+import { FibonacciState } from "./contexts/fibonacci/FibonacciState";
 
 function App() {
   return (
@@ -8,7 +9,9 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
       </header>
-      <FibonacciCalculator />
+      <FibonacciState>
+        <FibonacciCalculator />
+      </FibonacciState>
     </div>
   );
 }

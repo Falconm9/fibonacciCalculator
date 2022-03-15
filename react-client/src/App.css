@@ -52,9 +52,16 @@
   margin-left: 20px;
 }
 
+.errorText {
+  font-size: 20px;
+  font-weight: 500;
+  color: red;
+}
+
 .fibonacciComponent{
   width: 140px;
   padding: 8px 0;
   margin: 5px 10px;
   text-align: center;
 }
+

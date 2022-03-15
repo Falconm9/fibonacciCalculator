@@ -33,3 +33,28 @@
     transform: rotate(360deg);
   }
 }
+
+.titleText {
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.smallText {
+  font-size: 14px;
+  font-weight: 500;
+  display: inline-block;
+}
+
+.resultText {
+  font-size: 26px;
+  display: inline-block;
+  vertical-align: sub;
+  margin-left: 20px;
+}
+
+.fibonacciComponent{
+  width: 140px;
+  padding: 8px 0;
+  margin: 5px 10px;
+  text-align: center;
+}

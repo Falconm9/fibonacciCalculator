@@ -19,3 +19,8 @@ After that you can run the React-Client. In the project directory(repo/react-cli
 
 For run the tests please use:
 #### npm test
+
+
+```diff
+- Both projects need to be running at the same time!!!
+```

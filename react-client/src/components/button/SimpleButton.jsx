@@ -1,12 +1,14 @@
 import React, { Fragment } from 'react';
 
-const SimpleButton = ({className, handleOnClick, placeholderText, disabled, loadingAPICall}) => {
+const SimpleButton = (props) => {
+  const {dataTestId, className, handleOnClick, placeholderText, disabled, loadingAPICall} = props;
   return (
     <Fragment>
       <button
-          className={className}
-          onClick={handleOnClick}
-          disabled={disabled}
+        data-testid={dataTestId}
+        className={className}
+        onClick={handleOnClick}
+        disabled={disabled}
       >
           { !loadingAPICall ? 
             placeholderText

@@ -1,7 +1,7 @@
 import React from "react";
 
-const TextLabel = ({className, text }) => {
-  return <h1 className={className}>{text}</h1>;
+const TextLabel = ({ dataTestId, className, text }) => {
+  return <h1 data-testid={dataTestId} className={className}>{text}</h1>;
 };
 
 

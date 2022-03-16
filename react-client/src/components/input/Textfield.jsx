@@ -1,9 +1,10 @@
 import React, { Fragment } from 'react';
 
-const Textfield = ({value, handleChange, placeholderLabel, className}) => {
+const Textfield = (props) => {
+  const {dataTestId, value, handleChange, placeholderLabel, className} = props;
   return (
     <Fragment>
-        <input className={className} placeholder={placeholderLabel} value={value} onChange={handleChange} />
+        <input data-testid={dataTestId} className={className} placeholder={placeholderLabel} value={value} onChange={handleChange} />
     </Fragment>
   );
 }

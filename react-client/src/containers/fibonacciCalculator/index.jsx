@@ -26,14 +26,16 @@ function FibonacciCalculator() {
   const diabledButton = textfieldNumber !== '' && !loading ? false : true
   return (
     <div className="fibonacciCalc">
-      <TextLabel className="titleText" text={messages.title}/>
+      <TextLabel dataTestId="fiboTitle" className="titleText" text={messages.title}/>
       <Textfield
+       dataTestId="fiboInput"
         className="fibonacciComponent"
         placeholderLabel={messages.inputPlaceHolder}
         value={textfieldNumber}
         handleChange={handleChangeTextfield}
       />
-      <SimpleButton 
+      <SimpleButton
+        dataTestId="fiboButton"
         className="fibonacciComponent"
         placeholderText={messages.buttonText}
         handleOnClick={handleOnClick}
@@ -42,10 +44,10 @@ function FibonacciCalculator() {
       />
 
       <div>
-        <TextLabel className="smallText" text={messages.result}/>
-        <TextLabel className="resultText" text={fibonacciValue} />
+        <TextLabel dataTestId="fiboResult" className="smallText" text={messages.result}/>
+        <TextLabel dataTestId="fiboResultNumber" className="resultText" text={fibonacciValue} />
       </div>
-      <TextLabel className="errorText" text={errorMessage} />
+      <TextLabel dataTestId="fiboErrorMessage" className="errorText" text={errorMessage} />
     </div>
   );
 }

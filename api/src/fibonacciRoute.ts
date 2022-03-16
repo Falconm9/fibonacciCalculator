@@ -14,6 +14,7 @@ function getFibonacciValue(value: number){
   }
   
 }
+
 router.get("/:numberToCalculate", (req, res) => {
     const numberToCalculate: number =  Number(req.params.numberToCalculate);
     console.log("calculate fibonacci number of", numberToCalculate)
@@ -24,4 +25,4 @@ router.get("/:numberToCalculate", (req, res) => {
     });
 });
 
-module.exports = router;
+export default router;

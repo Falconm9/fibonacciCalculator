@@ -1,9 +1,8 @@
 import express from "express";
+import fibonacciRouter from './fibonacciRoute';
 const cors = require("cors");
-const fibonacciRouter = require("./fibonacciRoute");
 
 const app = express();
-const port = 8080;
 
 
 app.get("/", (req, res) => {
@@ -12,4 +11,4 @@ app.get("/", (req, res) => {
 app.use(cors());
 app.use("/fibonacci", fibonacciRouter)
 
-app.listen(port, () => console.log(`Server started https://localhost/:${port}`))
+export default app;

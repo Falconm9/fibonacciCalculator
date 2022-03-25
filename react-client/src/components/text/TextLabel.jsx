@@ -8,7 +8,10 @@ const TextLabel = ({ dataTestId, className, text }) => {
 TextLabel.propTypes = {
   dataTestId: PropTypes.string,
   className: PropTypes.string,
-  text: PropTypes.string
+  text: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]),
 }
 
 

@@ -12,7 +12,6 @@ export const FibonacciState = ({ children }) => {
     fibonacciValue: null,
     errorMessage: '',
     loading: false,
-    chronometerValue: 0,
   };
 
   const [state, dispatch] = useReducer(FibonacciReducer, initialState);

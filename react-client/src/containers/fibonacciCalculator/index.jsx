@@ -5,26 +5,30 @@ import TextLabel from '../../components/text/TextLabel';
 import messages from './messages';
 
 import { useFibonacci } from "../../contexts/fibonacci/FibonacciState";
-import { getCounter } from "../../contexts/fibonacci/FibonacciActions";
+import { getFibonacciValue } from "../../contexts/fibonacci/FibonacciActions";
 
 function FibonacciCalculator() {
   const [fibonacciState, fibonacciDispatch] = useFibonacci();
   const [textfieldNumber, setTextfieldNumber] = useState('');
-  const [time, setTime] = useState(0);
+  const [time, setTime] = useState(1);
   const [start, setStart] = useState(false);
-  const { fibonacciValue, errorMessage} = fibonacciState;
+  const { fibonacciValue, errorMessage, loading} = fibonacciState;
   useEffect(() => {
+    const stopInterval = (myInterval) => {
+      clearInterval(myInterval)
+      setStart(false)
+      setTime(1);
+    }
+
     let myInterval;
     if(start){
       myInterval = setInterval(async () => { 
-        await getCounter(fibonacciDispatch, time) 
+        await getFibonacciValue(fibonacciDispatch, time) 
         setTime(time => time + 1);
       }, 1000 );
     }  
-    if( time === textfieldNumber+1) {
-      clearInterval(myInterval)
-      setStart(false)
-      setTime(0);
+    if( time === (textfieldNumber + 1) || !start  ) {
+      stopInterval(myInterval)
     }
     return () => clearInterval(myInterval);
   }, [fibonacciDispatch, start, textfieldNumber, time]);
@@ -36,10 +40,15 @@ function FibonacciCalculator() {
     }
   }
 
+  const handleOnClick = async () => {
+    await getFibonacciValue(fibonacciDispatch, textfieldNumber);
+  }
+
   const manageChronomether = () => {
     setStart(!start);
   }
-  const diabledButton = textfieldNumber !== ''  ? false : true
+   
+  const diabledButton = textfieldNumber !== '' && !start ? false : true
   return (
     <div className="fibonacciCalc">
       <TextLabel dataTestId="fiboTitle" className="titleText" text={messages.title}/>
@@ -52,11 +61,21 @@ function FibonacciCalculator() {
       />
 
       <SimpleButton
+        dataTestId="fiboButton"
+        className="fibonacciComponent"
+        placeholderText={messages.buttonText}
+        handleOnClick={handleOnClick}
+        disabled={diabledButton}
+        loadingAPICall={loading}
+      />
+
+      <SimpleButton
         dataTestId="clearInterval"
         className="fibonacciComponent"
         placeholderText={!start ? "Start Chronometer" : "stop Chronometer"}
         handleOnClick={manageChronomether}
-        disabled={diabledButton}
+        disabled={diabledButton || loading}
+        loadingAPICall={start}
       />
 
       <div>

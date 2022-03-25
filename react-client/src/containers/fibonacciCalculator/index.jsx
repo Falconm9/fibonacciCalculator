@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Textfield from '../../components/input/Textfield';
 import SimpleButton from '../../components/button/SimpleButton';
 import TextLabel from '../../components/text/TextLabel';
@@ -10,8 +10,28 @@ import { getFibonacciValue } from "../../contexts/fibonacci/FibonacciActions";
 function FibonacciCalculator() {
   const [fibonacciState, fibonacciDispatch] = useFibonacci();
   const [textfieldNumber, setTextfieldNumber] = useState('');
+  const [time, setTime] = useState(1);
+  const [start, setStart] = useState(false);
+  const { fibonacciValue, errorMessage, loading} = fibonacciState;
+  useEffect(() => {
+    const stopInterval = (myInterval) => {
+      clearInterval(myInterval)
+      setStart(false)
+      setTime(1);
+    }
 
-  const { fibonacciValue, errorMessage, loading } = fibonacciState;
+    let myInterval;
+    if(start){
+      myInterval = setInterval(async () => { 
+        await getFibonacciValue(fibonacciDispatch, time) 
+        setTime(time => time + 1);
+      }, 1000 );
+    }  
+    if( time === (textfieldNumber + 1) || !start  ) {
+      stopInterval(myInterval)
+    }
+    return () => clearInterval(myInterval);
+  }, [fibonacciDispatch, start, textfieldNumber, time]);
 
   const handleChangeTextfield = evt => {
     const inputValue = Number(evt.target.value);
@@ -23,7 +43,12 @@ function FibonacciCalculator() {
   const handleOnClick = async () => {
     await getFibonacciValue(fibonacciDispatch, textfieldNumber);
   }
-  const diabledButton = textfieldNumber !== '' && !loading ? false : true
+
+  const manageChronomether = () => {
+    setStart(!start);
+  }
+   
+  const diabledButton = textfieldNumber !== '' && !start ? false : true
   return (
     <div className="fibonacciCalc">
       <TextLabel dataTestId="fiboTitle" className="titleText" text={messages.title}/>
@@ -34,6 +59,7 @@ function FibonacciCalculator() {
         value={textfieldNumber}
         handleChange={handleChangeTextfield}
       />
+
       <SimpleButton
         dataTestId="fiboButton"
         className="fibonacciComponent"
@@ -41,6 +67,15 @@ function FibonacciCalculator() {
         handleOnClick={handleOnClick}
         disabled={diabledButton}
         loadingAPICall={loading}
+      />
+
+      <SimpleButton
+        dataTestId="clearInterval"
+        className="fibonacciComponent"
+        placeholderText={!start ? "Start Chronometer" : "stop Chronometer"}
+        handleOnClick={manageChronomether}
+        disabled={diabledButton || loading}
+        loadingAPICall={start}
       />
 
       <div>

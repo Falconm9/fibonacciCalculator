@@ -6,6 +6,12 @@ const FibonacciReducer =(state, action) => {
         fibonacciValue: action.payload,
         loading: false
       };
+    case "SET_COUNTER":
+      return {
+        ...state,
+        fibonacciValue: action.payload,
+        chronometerValue: state.chronometerValue++
+      };
     case "SET_ERROR":
       return {
         ...state,
